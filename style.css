@@ -298,3 +298,98 @@ button.reset-btn:hover {
         justify-content: center;
     }
 }
+/* ===== МОБИЛЬНАЯ ВЕРСИЯ ===== */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2em;
+    }
+    
+    header p {
+        font-size: 1em;
+    }
+    
+    .games-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 10px;
+    }
+    
+    .game-card {
+        padding: 20px;
+    }
+    
+    .game-icon {
+        font-size: 3em;
+    }
+    
+    .game-card h2 {
+        font-size: 1.5em;
+    }
+    
+    /* Для полотна рисования */
+    .drawing-container {
+        padding: 10px;
+    }
+    
+    #drawCanvas {
+        width: 100%;
+        height: auto;
+    }
+    
+    .drawing-tools {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .color-picker {
+        justify-content: center;
+    }
+    
+    /* Для страниц игр */
+    .game-container {
+        padding: 15px;
+        margin: 10px;
+    }
+    
+    canvas {
+        width: 100%;
+        height: auto;
+    }
+    
+    .back-link {
+        margin: 10px;
+    }
+    
+    .stats-container {
+        padding: 10px;
+    }
+    
+    .stats-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.5em;
+    }
+    
+    .stat-block {
+        padding: 10px;
+    }
+    
+    .stat-icon {
+        font-size: 1.5em;
+    }
+    
+    .stat-value {
+        font-size: 1.2em;
+    }
+    
+    .random-btn {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+}
