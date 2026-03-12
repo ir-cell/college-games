@@ -63,10 +63,10 @@ function endTest() {
     clickArea.className = 'waiting';
     instruction.textContent = 'Нажми, чтобы начать заново';
     
-    // РАЗРЕШАЕМ КЛИКИ ЧЕРЕЗ 500 МС
+    // РАЗРЕШАЕМ КЛИКИ ЧЕРЕЗ 1250 МС
     setTimeout(() => {
         canClick = true;
-    }, 500);
+    }, 1250);
     
     let cps = (clicks / totalTime).toFixed(1);
     cpsSpan.textContent = cps;
