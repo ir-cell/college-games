@@ -3,7 +3,7 @@ let timeLeft = 5;
 let totalTime = 5;
 let active = false;
 let timerInterval;
-let canClick = true; // НОВАЯ ПЕРЕМЕННАЯ для блокировки кликов
+let testJustEnded = false; // НОВАЯ ПЕРЕМЕННАЯ
 
 let clickArea = document.getElementById('click-area');
 let clicksSpan = document.getElementById('clicks');
@@ -37,7 +37,7 @@ function startTest() {
     clicks = 0;
     timeLeft = totalTime;
     active = true;
-    canClick = true; // РАЗРЕШАЕМ КЛИКИ
+    testJustEnded = false; // СБРАСЫВАЕМ ФЛАГ
     clicksSpan.textContent = clicks;
     timerSpan.textContent = timeLeft;
     cpsSpan.textContent = '0.0';
@@ -58,15 +58,15 @@ function startTest() {
 
 function endTest() {
     active = false;
-    canClick = false; // ЗАПРЕЩАЕМ КЛИКИ СРАЗУ ПОСЛЕ ОКОНЧАНИЯ
+    testJustEnded = true; // СТАВИМ ФЛАГ ЧТО ТЕСТ ТОЛЬКО ЧТО ЗАКОНЧИЛСЯ
     clearInterval(timerInterval);
     clickArea.className = 'waiting';
     instruction.textContent = 'Нажми, чтобы начать заново';
     
-    // РАЗРЕШАЕМ КЛИКИ ЧЕРЕЗ 1250 МС
+    // ЧЕРЕЗ 500 МС УБИРАЕМ ФЛАГ
     setTimeout(() => {
-        canClick = true;
-    }, 1250);
+        testJustEnded = false;
+    }, 500);
     
     let cps = (clicks / totalTime).toFixed(1);
     cpsSpan.textContent = cps;
@@ -86,7 +86,7 @@ function resetTest() {
     clicks = 0;
     timeLeft = totalTime;
     active = false;
-    canClick = true;
+    testJustEnded = false;
     clicksSpan.textContent = clicks;
     timerSpan.textContent = timeLeft;
     cpsSpan.textContent = '0.0';
@@ -96,8 +96,10 @@ function resetTest() {
 }
 
 clickArea.onclick = () => {
-    // ЕСЛИ НЕЛЬЗЯ КЛИКАТЬ - НИЧЕГО НЕ ДЕЛАЕМ
-    if (!canClick) return;
+    // ЕСЛИ ТЕСТ ТОЛЬКО ЧТО ЗАКОНЧИЛСЯ - ИГНОРИРУЕМ КЛИК
+    if (testJustEnded) {
+        return;
+    }
     
     if (!active) {
         startTest();
