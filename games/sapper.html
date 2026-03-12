@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сапёр</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .board {
+            display: grid;
+            grid-template-columns: repeat(8, 40px);
+            gap: 2px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .cell {
+            width: 40px;
+            height: 40px;
+            background: #c3cfe2;
+            border: 1px solid #1919ff;  /* Новый цвет */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.1s;
+            color: #1919ff;  /* Новый цвет */
+            font-size: 1.2em;
+        }
+        .cell.open {
+            background: white;
+        }
+        .cell.mine {
+            background: #ff4444;
+            color: white;
+        }
+        .cell.flagged {
+            background: #ffe68f;
+        }
+        .reset-btn {
+            background: #1919ff;  /* Новый цвет */
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 30px;
+            font-size: 1em;
+            cursor: pointer;
+            margin: 20px;
+        }
+        .info-panel {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-link">← На главную</a>
+    <div class="game-container">
+        <h2>💣 Сапёр</h2>
+        <div class="info-panel">
+            <div>🚩 Флагов: <span id="flags-count">8</span></div>
+            <div id="message"></div>
+        </div>
+        <div id="board" class="board"></div>
+        <button class="reset-btn" onclick="initGame()">Новая игра</button>
+    </div>
+    <script src="js/sapper.js"></script>
+</body>
+</html>

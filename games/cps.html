@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPS Test</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        #click-area {
+            width: 400px;
+            height: 400px;
+            background: #c3cfe2;
+            margin: 20px auto;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            user-select: none;
+            transition: 0.2s;
+            border: 3px solid #1959d1;
+        }
+        #click-area:active {
+            transform: scale(0.98);
+        }
+        #click-area.waiting {
+            background: #ffe68f;
+        }
+        #click-area.active {
+            background: #a5d6ff;
+        }
+        .stats {
+            font-size: 1.5em;
+            color: #1959d1;
+            margin: 10px;
+        }
+        .cps-display {
+            font-size: 3em;
+            font-weight: bold;
+            color: #1959d1;
+        }
+        .result-message {
+            font-size: 1.8em;
+            margin-top: 20px;
+            color: #1959d1;
+        }
+        .reset-btn {
+            background: #1959d1;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin: 20px;
+        }
+        .time-selector {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .time-btn {
+            background: white;
+            border: 2px solid #1959d1;
+            color: #1959d1;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .time-btn:hover {
+            background: #1959d1;
+            color: white;
+        }
+        .time-btn.active {
+            background: #1959d1;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-link">← На главную</a>
+    <div class="game-container">
+        <h2>🖱️ CPS Test</h2>
+        
+        <div class="time-selector">
+            <button class="time-btn active" data-time="5" onclick="setTime(5)">5 сек</button>
+            <button class="time-btn" data-time="10" onclick="setTime(10)">10 сек</button>
+            <button class="time-btn" data-time="15" onclick="setTime(15)">15 сек</button>
+        </div>
+        
+        <div class="stats">
+            <span id="clicks">0</span> кликов | Время: <span id="timer">5</span>с
+        </div>
+        
+        <div id="click-area" class="waiting">
+            <div class="cps-display" id="cps">0.0</div>
+            <div id="instruction">Нажми, чтобы начать</div>
+        </div>
+        
+        <div id="result" class="result-message"></div>
+        <button class="reset-btn" onclick="resetTest()">Заново</button>
+    </div>
+    <script src="js/cps.js"></script>
+</body>
+</html>

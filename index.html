@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Games | Главная</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>IT. Москва Arcade 🎮</h1>
+        <p>Выбери игру и отвлекись от пар</p>
+    </header>
+
+    <!-- ПОЛОТНО ДЛЯ РИСОВАНИЯ -->
+    <div class="drawing-container">
+        <canvas id="drawCanvas" width="800" height="300"></canvas>
+        <div class="drawing-tools">
+            <div class="color-picker">
+                <button class="color-btn" style="background: #1959d1;" data-color="#1959d1"></button>
+                <button class="color-btn" style="background: #ff4444;" data-color="#ff4444"></button>
+                <button class="color-btn" style="background: #00c851;" data-color="#00c851"></button>
+                <button class="color-btn" style="background: #ffbb33;" data-color="#ffbb33"></button>
+                <button class="color-btn" style="background: #000000;" data-color="#000000"></button>
+            </div>
+            <button class="clear-btn" id="clearCanvas">🧹 Очистить</button>
+        </div>
+    </div>
+
+    <main class="games-grid">
+        <!-- Карточка игры 1: Змейка -->
+        <a href="games/snake.html" class="game-card">
+            <div class="card-content">
+                <span class="game-icon">🐍</span>
+                <h2>Змейка</h2>
+                <p>Классика. Ешь, расти, не врезайся.</p>
+            </div>
+        </a>
+
+        <!-- Карточка игры 2: Сапер -->
+        <a href="games/sapper.html" class="game-card">
+            <div class="card-content">
+                <span class="game-icon">💣</span>
+                <h2>Сапёр</h2>
+                <p>Найди все мины. Логика или удача?</p>
+            </div>
+        </a>
+
+        <!-- Карточка игры 3: Угадай флаг -->
+        <a href="games/flag.html" class="game-card">
+            <div class="card-content">
+                <span class="game-icon">🏁</span>
+                <h2>Угадай флаг</h2>
+                <p>Проверь знание географии.</p>
+            </div>
+        </a>
+
+        <!-- Карточка игры 4: Кликер -->
+        <a href="games/cps.html" class="game-card">
+            <div class="card-content">
+                <span class="game-icon">🖱️</span>
+                <h2>Кликер</h2>
+                <p>Проверь свою скорость кликов!</p>
+            </div>
+        </a>
+    </main>
+
+    <footer>
+        <p>©IT. Москва Arcade Шабанов Д.М.</p>
+    </footer>
+
+    <script>
+        // ===== ПОЛОТНО ДЛЯ РИСОВАНИЯ =====
+        const canvas = document.getElementById('drawCanvas');
+        const ctx = canvas.getContext('2d');
+        let drawing = false;
+        let currentColor = '#1959d1';
+
+        // Начальные настройки
+        ctx.lineWidth = 3;
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = currentColor;
+
+        // Функция для получения правильных координат
+        function getMousePos(e) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            
+            return {
+                x: (e.clientX - rect.left) * scaleX,
+                y: (e.clientY - rect.top) * scaleY
+            };
+        }
+
+        // Рисование
+        canvas.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            drawing = true;
+            const pos = getMousePos(e);
+            ctx.beginPath();
+            ctx.moveTo(pos.x, pos.y);
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (!drawing) return;
+            e.preventDefault();
+            const pos = getMousePos(e);
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+        });
+
+        canvas.addEventListener('mouseup', () => drawing = false);
+        canvas.addEventListener('mouseleave', () => drawing = false);
+
+        // Выбор цвета
+        document.querySelectorAll('.color-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentColor = btn.dataset.color;
+                ctx.strokeStyle = currentColor;
+                
+                document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        // Очистка
+        document.getElementById('clearCanvas').addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+
+        // Делаем первую кнопку активной
+        document.querySelector('.color-btn').classList.add('active');
+    </script>
+</body>
+</html>

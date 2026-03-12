@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Угадай флаг</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .flag-display {
+            margin: 20px;
+        }
+        .flag-display img {
+            width: 250px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: 2px solid #1959d1;
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+            padding: 0 20px;
+        }
+        .option-btn {
+            background: white;
+            border: 2px solid #1959d1;
+            color: #1959d1;
+            padding: 15px 10px;
+            border-radius: 60px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option-btn:hover {
+            background: #1959d1;
+            color: white;
+        }
+        .option-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .score-counter {
+            font-size: 2em;
+            color: #1959d1;
+            margin: 20px;
+            font-weight: bold;
+        }
+        .message {
+            font-size: 1.5em;
+            min-height: 60px;
+            margin: 20px;
+        }
+        .correct {
+            color: #00c851;
+        }
+        .wrong {
+            color: #ff4444;
+        }
+        .reset-btn {
+            background: #1959d1;
+            color: white;
+            border: none;
+            padding: 12px 40px;
+            border-radius: 60px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin: 20px;
+        }
+        .reset-btn:hover {
+            background: #0e3a8a;
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-link">← На главную</a>
+    <div class="game-container">
+        <h2>🏁 Угадай флаг</h2>
+        
+        <div class="score-counter">
+            Счёт: <span id="score">0</span>
+        </div>
+        
+        <div id="flagDisplay" class="flag-display">
+            <img id="flagImage" src="https://flagcdn.com/w320/ru.png" alt="flag">
+        </div>
+        
+        <div id="options" class="options-grid"></div>
+        
+        <div id="message" class="message"></div>
+        
+        <button class="reset-btn" onclick="resetGame()">Следующий флаг</button>
+    </div>
+    <script src="js/flag.js"></script>
+</body>
+</html>
