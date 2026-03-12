@@ -3,6 +3,7 @@ let timeLeft = 5;
 let totalTime = 5;
 let active = false;
 let timerInterval;
+let canClick = true; // НОВАЯ ПЕРЕМЕННАЯ для блокировки кликов
 
 let clickArea = document.getElementById('click-area');
 let clicksSpan = document.getElementById('clicks');
@@ -19,12 +20,10 @@ function setTime(seconds) {
     timeLeft = seconds;
     timerSpan.textContent = timeLeft;
     
-    // Убираем active со всех кнопок
     timeButtons.forEach(btn => {
         btn.classList.remove('active');
     });
     
-    // Находим кнопку с нужным data-time и добавляем active
     timeButtons.forEach(btn => {
         if (parseInt(btn.dataset.time) === seconds) {
             btn.classList.add('active');
@@ -38,6 +37,7 @@ function startTest() {
     clicks = 0;
     timeLeft = totalTime;
     active = true;
+    canClick = true; // РАЗРЕШАЕМ КЛИКИ
     clicksSpan.textContent = clicks;
     timerSpan.textContent = timeLeft;
     cpsSpan.textContent = '0.0';
@@ -58,9 +58,15 @@ function startTest() {
 
 function endTest() {
     active = false;
+    canClick = false; // ЗАПРЕЩАЕМ КЛИКИ СРАЗУ ПОСЛЕ ОКОНЧАНИЯ
     clearInterval(timerInterval);
     clickArea.className = 'waiting';
     instruction.textContent = 'Нажми, чтобы начать заново';
+    
+    // РАЗРЕШАЕМ КЛИКИ ЧЕРЕЗ 500 МС
+    setTimeout(() => {
+        canClick = true;
+    }, 500);
     
     let cps = (clicks / totalTime).toFixed(1);
     cpsSpan.textContent = cps;
@@ -80,6 +86,7 @@ function resetTest() {
     clicks = 0;
     timeLeft = totalTime;
     active = false;
+    canClick = true;
     clicksSpan.textContent = clicks;
     timerSpan.textContent = timeLeft;
     cpsSpan.textContent = '0.0';
@@ -89,6 +96,9 @@ function resetTest() {
 }
 
 clickArea.onclick = () => {
+    // ЕСЛИ НЕЛЬЗЯ КЛИКАТЬ - НИЧЕГО НЕ ДЕЛАЕМ
+    if (!canClick) return;
+    
     if (!active) {
         startTest();
     } else {
@@ -106,5 +116,4 @@ clickArea.oncontextmenu = (e) => {
     return false;
 };
 
-// Устанавливаем начальное состояние
 setTime(5);
